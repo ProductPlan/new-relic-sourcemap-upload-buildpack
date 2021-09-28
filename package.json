@@ -1,0 +1,11 @@
+{
+  "name": "new-relic-sourcemap-upload-buildpack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ProductPlan/new-relic-sourcemap-upload-buildpack.git",
+  "author": "James Abercrombie <james@productplan.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@newrelic/publish-sourcemap": "^5.0.1"
+  }
+}

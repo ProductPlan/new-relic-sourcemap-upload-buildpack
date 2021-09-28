@@ -1,0 +1,32 @@
+#!/bin/sh
+
+build_dir=$1
+env_dir=$3
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+export_env_dir() {
+  env_dir=$1
+  acceptlist_regex=${2:-'^(NEW_RELIC_APPLICATION_ID|NEW_RELIC_SOURCE_MAPS_API_KEY)$'}
+  denylist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
+  if [ -d "$env_dir" ]; then
+    for e in $(ls $env_dir); do
+      echo "$e" | grep -E "$acceptlist_regex" | grep -qvE "$denylist_regex" &&
+      export "$e=$(cat $env_dir/$e)"
+      :
+    done
+  fi
+}
+
+echo "-----> Setting up env vars..."
+  export_env_dir $env_dir
+
+# echo "-----> Installing node modules (yarn.lock)..."
+#   cd "$build_dir" || return
+#   yarn install --frozen-lockfile 2>&1 | indent
+
+# echo "-----> Uploading sourcemaps..."
+#   cd "$build_dir" || return
+#   node ./publishSourcemap.js 2>&1 | indent

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+build_dir=$1
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+# this pack is valid for apps with a manifest.json in the public/packs dir
+echo "-----> Checking for manifest..."
+# if [ -d $build_dir/public/packs/manifest.json ]; then
+  exit 0
+# else
+  # echo "no manifest found - aborting upload" | indent
+  # exit 1
+# fi
